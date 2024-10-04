@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body {
+  margin: 0;
+  background-color: blue;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+@layer utilities {
+  .after-bg-image::before {
+    content: '';
+    position: absolute;
+    background-image: url('../src/assets/images/board-layer-black-large.svg');
+    height: 37.5rem;
+    width: 39.5rem;
+    background-repeat: no-repeat;
+    z-index: -3;
+
+  }
+
+  .small-after-bg-image::before {
+    content: '';
+    position: absolute;
+    background-image: url('../src/assets/images/board-layer-black-small.svg');
+    height: 20.375rem;
+    width: 20.9375rem;
+    z-index: -3;
+  }
+
+  .small-before-bg-image::after {
+    content: '';
+    position: absolute;
+    background-image: url('../src/assets/images/board-layer-white-small.svg');
+    background-repeat: no-repeat;
+    height: 19.375rem;
+    width: 20.9375rem;
+    z-index: 2;
+  }
+
+  .column_indicator_1 {
+    width: 2rem;
+    height: 1.8rem;
+    margin-top: -3rem;
+    margin: -2rem auto 0;
+  }
+
+  .column_indicator_2 {
+    width: 2rem;
+    margin-top: -3rem;
+    margin: -2rem auto 0;
+  }
+
+  .player-one-image {
+    background-image: url('../src/assets/images/turn-background-red.svg');
+    background-repeat: no-repeat;
+    height: 10.25rem;
+    width: 12.3125rem;
+    z-index: 50;
+  }
+
+  .player-two-image {
+    background-image: url('../src/assets/images/turn-background-yellow.svg');
+    background-repeat: no-repeat;
+    height: 10.25rem;
+    width: 12.3125rem;
+    z-index: 50;
+  }
+
+  .player1-large {
+    background: url('../src/assets/images/counter-red-large.svg');
+    width: 5rem;
+    height: 4.6875em;
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  .player2-large {
+    background: url('../src/assets/images/counter-yellow-large.svg');
+    width: 5rem;
+    height: 4.6875em;
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  .player1-small {
+    background: url('../src/assets/images/counter-red-small.svg');
+    width: 2.5rem;
+    height: 2.8125rem;
+    background-position: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  .player2-small {
+    background: url('../src/assets/images/counter-yellow-small.svg');
+    width: 2.5rem;
+    height: 2.8125rem;
+    background-repeat: no-repeat;
+    z-index: -2;
+  }
+
+  .before-bg-image::after {
+    content: '';
+    position: absolute;
+    background-image: url('../src/assets/images/board-layer-white-large.svg');
+    height: 36.5rem;
+    width: 39.5rem;
+    background-repeat: no-repeat;
+    z-index: 2 !important;
+
+
+
+  }
+}
