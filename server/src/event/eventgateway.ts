@@ -14,7 +14,6 @@ import { Server, Socket } from 'socket.io';
 
 import { GameManagerService } from 'src/game-manager/game-manager.service';
 import { INIT_GAME, MOVE_DISC } from 'src/message/messageevents';
-import { SocketMiddleware } from 'src/socket-middleware/socket-middleware.middleware';
 
 @WebSocketGateway({
   cors: {
@@ -28,13 +27,10 @@ export class EventsGateway
   server: Server;
 
   private readonly logger = new Logger(EventsGateway.name);
-  constructor(
-    private gameManager: GameManagerService,
-    private socketMiddleware: SocketMiddleware,
-  ) {}
+  constructor(private gameManager: GameManagerService) {}
 
-  afterInit(server: Server) {
-    server.use(this.socketMiddleware.use.bind(this.socketMiddleware)); // Bind to preserve the `this` context
+  afterInit() {
+    // server.use(this.socketMiddleware.use.bind(this.socketMiddleware)); // Bind to preserve the `this` context
     this.logger.log('WebSocket Gateway initialized');
   }
 
