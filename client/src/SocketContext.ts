@@ -2,12 +2,12 @@ import React, { createContext, SetStateAction, useContext, useEffect, useState }
 import { io, Socket } from 'socket.io-client';
 
 // Replace with your server URL
-export const sockerServerUrl = 'https://connect4multiplayer-20.onrender.com';
+const port=process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:3001"
+export const sockerServerUrl = port;
 
 // Create a context for the socket
 const clientId=localStorage.getItem('clientId')
 export const socket =io(sockerServerUrl,{
-    
     query:{
         clientId:clientId
     }
