@@ -8,7 +8,7 @@ export const sockerServerUrl = port.replace(/^http/, protocol);
 
 
 // Create a context for the socket
-const clientId=localStorage.getItem('clientId')
+
 export const socket =io(sockerServerUrl,{
     transports:['websockets']
 })
