@@ -17,7 +17,10 @@ import { INIT_GAME, MOVE_DISC } from 'src/message/messageevents';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:3001',
+    origin: [
+      'http://localhost:3001',
+      'wss://connect4-multi-player.vercel.app/',
+    ],
   },
 })
 export class EventsGateway
