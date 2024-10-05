@@ -10,7 +10,7 @@ export const sockerServerUrl = port.replace(/^http/, protocol);
 // Create a context for the socket
 
 export const socket =io(sockerServerUrl,{
-    transports:['websockets']
+    transports:['websocket']
 })
 
  export const SocketContext = createContext<Socket | null>(socket);
