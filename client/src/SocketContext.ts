@@ -2,7 +2,7 @@ import React, { createContext, SetStateAction, useContext, useEffect, useState }
 import { io, Socket } from 'socket.io-client';
 
 // Replace with your server URL
-const port = process.env.REACT_APP_WEBSOCKET_URL || "ws://localhost:3001";
+const port = process.env.REACT_APP_WEBSOCKET_URL || "ws://localhost:3000";
 const protocol = port.startsWith('https') ? 'wss' : 'ws';
 export const sockerServerUrl = port.replace(/^http/, protocol);
 
