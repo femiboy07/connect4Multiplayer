@@ -2,15 +2,15 @@ import React, { createContext, SetStateAction, useContext, useEffect, useState }
 import { io, Socket } from 'socket.io-client';
 
 // Replace with your server URL
-const port=process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:3001"
-export const sockerServerUrl = port;
+const port = process.env.REACT_APP_WEBSOCKET_URL || "ws://localhost:3001";
+const protocol = port.startsWith('https') ? 'wss' : 'ws';
+export const sockerServerUrl = port.replace(/^http/, protocol);
+
 
 // Create a context for the socket
 const clientId=localStorage.getItem('clientId')
 export const socket =io(sockerServerUrl,{
-    query:{
-        clientId:clientId
-    }
+    transports:['websockets']
 })
 
  export const SocketContext = createContext<Socket | null>(socket);
