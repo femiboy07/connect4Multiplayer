@@ -19,7 +19,7 @@ import { INIT_GAME, MOVE_DISC } from 'src/message/messageevents';
   cors: {
     origin: [
       'http://localhost:3001',
-      'wss://connect4-multi-player.vercel.app/',
+      'https://connect4-multi-player.vercel.app/',
     ],
   },
 })
