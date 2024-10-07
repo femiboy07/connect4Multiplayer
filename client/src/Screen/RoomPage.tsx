@@ -262,7 +262,7 @@ export default function RoomPage() {
   useEffect(() => {
     socket.on('updatedBoard', (data) => {
       console.log(data)
-      if (sounds.sound2) {
+      if (sounds.sound2 && roomId) {
         sounds.sound2.play()
       }
       setBoard(data.board)
@@ -272,7 +272,7 @@ export default function RoomPage() {
     return () => {
       socket.off("updatedBoard")
     }
-  }, [setBoard, setCurrentPlayer, setRoomId, socket, sounds])
+  }, [setBoard, setCurrentPlayer, setRoomId, socket, sounds, roomId])
 
 
   useEffect(() => {
@@ -302,34 +302,36 @@ export default function RoomPage() {
           </div>}
         </div>}
       {gameStarted && (
-        <div className="">
+        <>
           {!online && <ModalConnection />}
-          <div className=" min-h-screen w-full">
-            {isLoading && <h1>Loading...</h1>}
-            {!roomId && <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1>}
-            {toast && <ToastRoom toastMessage={toastMessage} setToast={setToast} />}
-            {turn !== null && <div className="flex h-full flex-col fixed top-1/2 bg-white    -translate-y-1/2 left-1/2 -translate-x-1/2  z-[7777778888444555] w-full justify-center items-center">
-              <h1 className="leading-6 text-5xl text-red-300 md:animate-scaleUpMd animate-scaleUpSm  font-extrabold"> {turn}</h1>
+          {!roomId ? <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1> :
+            <div className=" min-h-screen w-full">
+              {isLoading && <h1>Loading...</h1>}
+
+              {toast && <ToastRoom toastMessage={toastMessage} setToast={setToast} />}
+              {turn !== null && <div className="flex h-full flex-col fixed top-1/2 bg-white    -translate-y-1/2 left-1/2 -translate-x-1/2  z-[7777778888444555] w-full justify-center items-center">
+                <h1 className="leading-6 text-5xl text-red-300 md:animate-scaleUpMd animate-scaleUpSm  font-extrabold"> {turn}</h1>
+              </div>}
+              {winner && roomId &&
+                <>
+                  <ModalWinner
+                    roomId={roomId}
+                    setToast={setToast}
+                    setToastMessage={setToastMessage}
+                    setPlayerLeft={setPlayerLeft}
+                    playerLeft={playerLeft}
+                    won={won}
+                    winner={winner}
+                    setWinner={setWinner}
+                  />
+                </>
+              }
+              <CreateBoard />
+              <div className=" -z-10 bg-blue-400 min-h-[14.625rem]  w-full mt-[-3rem]  rounded-tr-[25%] rounded-tl-[25%] sm:rounded-tr-3xl sm:rounded-tl-3xl"></div>
             </div>}
-            {winner && roomId &&
-              <>
-                <ModalWinner
-                  roomId={roomId}
-                  setToast={setToast}
-                  setToastMessage={setToastMessage}
-                  setPlayerLeft={setPlayerLeft}
-                  playerLeft={playerLeft}
-                  won={won}
-                  winner={winner}
-                  setWinner={setWinner}
-                />
-              </>
-            }
-            <CreateBoard />
-            <div className=" -z-10 bg-blue-400 min-h-[14.625rem]  w-full mt-[-3rem]  rounded-tr-[25%] rounded-tl-[25%] sm:rounded-tr-3xl sm:rounded-tl-3xl"></div>
-          </div>
-        </div>
+        </>
       )}
     </>
   )
+
 }
