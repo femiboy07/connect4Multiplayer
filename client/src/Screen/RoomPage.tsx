@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSocket } from "../SocketContext";
 import { useNavigate, useParams } from "react-router-dom";
 import CreateBoard from "../components/CreateBoard";
@@ -107,7 +107,10 @@ export default function RoomPage() {
   }, [gameStarted, roomId, socket])
 
   useEffect(() => {
-    preloadedSound()
+    preloadedSound();
+    setLoading(true)
+
+
 
     if (!online) {
       // navigate('/', { replace: true })
@@ -140,7 +143,8 @@ export default function RoomPage() {
     socket.on('matching', (data) => {
       console.log(data)
       setBeginMessage(data)
-      setOnMount(true)
+      setOnMount(true);
+      setLoading(false)
     })
 
     socket.on("gameStarted", (data) => {
@@ -233,11 +237,8 @@ export default function RoomPage() {
       setTurn(data);
 
     })
-
     return () => {
       socket.off('turn');
-
-
     }
   }, [socket, turn])
 
@@ -281,6 +282,10 @@ export default function RoomPage() {
   return (
     <>
       {/* {!roomId && <div>No room found</div>} */}
+      {isLoading && <div className="w-full h-full justify-center flex-col items-center ">
+        <span>Loading...</span>
+      </div>}
+      {!online && <ModalConnection />}
       {!gameStarted &&
         <div className="text-center ">
           {onMount && <h1 className={`text-4xl leading-8 delay-75 text-white duration-150 ease-in-out`}>Finding a Random Player</h1>}
