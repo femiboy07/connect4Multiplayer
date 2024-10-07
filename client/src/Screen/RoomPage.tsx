@@ -50,54 +50,46 @@ export default function RoomPage() {
 
 
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (e: any) => {
-  //     // Emit leaveRoom event to notify the server
-  //     socket.emit('leaveRoom', roomId);
-  //     e.preventDefault();
+  useEffect(() => {
+    const handleBeforeUnload = (e: any) => {
+      // Emit leaveRoom event to notify the server
+      if (gameStarted && roomId) {
+        socket.emit('leaveRoom', roomId);
+        e.preventDefault();
 
-  //     // Perform cleanup and disconnect socket
-  //     setGameStarted(false);
-  //     setRoomId(null);
-  //     setPlayer1(null);
-  //     setPlayer2(null);
-  //     setToast(false);
+        // Perform cleanup and disconnect socket
+        setGameStarted(false);
+        setRoomId(null);
+        setPlayer1(null);
+        setPlayer2(null);
+        setToast(false);
 
-  //     // Force navigation back to home
-  //     navigate('/', { replace: true });
-  //   };
+        // Force navigation back to home
+        // navigate('/', { replace: true });
+        window.location.replace('/')
+      }
+    };
 
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, [socket, roomId, navigate, setGameStarted, setRoomId, setPlayer1, setPlayer2, setToast]);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      if (roomId) {
+        window.location.replace('/')
+      }
+    };
+  }, [socket, roomId, navigate, setGameStarted, setRoomId, setPlayer1, setPlayer2, setToast, gameStarted]);
 
 
-  // useBeforeUnload(
-  //   useCallback((e: any) => {
 
-  //     // e.preventDefault();
 
-  //     // Perform cleanup and disconnect socket
-  //     setGameStarted(false);
-  //     setRoomId(null);
-  //     setPlayer1(null);
-  //     setPlayer2(null);
-  //     setToast(false);
 
-  //     socket.on('disconnect', () => {
-  //       socket.emit('leaveRoom', roomId);
-  //       window.location.replace('/');
-  //     })
+  useBeforeUnload(useCallback((e: any) => {
+    if (onMount && beginMessage) {
 
-  //     // Force navigation back to home
-  //     // navigate('/', { replace: true });
-
-  //     return ''
-  //   }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
-  // )
+      socket.emit('stop_searching_players')
+    }
+  }, [beginMessage, onMount, socket]))
 
 
   useEffect(() => {
@@ -106,13 +98,13 @@ export default function RoomPage() {
 
     if (navigationType === "reload") {
       // Reset relevant states
-      socket.emit('leaveRoom', roomId)
+      // socket.emit('leaveRoom', roomId)
       setGameStarted(false);
       setRoomId(null);
       setPlayer1(null);
       setPlayer2(null);
       // Ensure proper cleanup of socket listeners as well
-      socket.emit('leaveRoom', roomId);  // Notify server that the player has left
+      // socket.emit('leaveRoom', roomId);  // Notify server that the player has left
       window.location.replace("/");
 
     }
@@ -120,7 +112,6 @@ export default function RoomPage() {
 
   useEffect(() => {
     setLoading(true);
-
   }, [])
 
 
@@ -206,7 +197,6 @@ export default function RoomPage() {
       setWinner(true)
       setWon(data)
       socket.off('time');
-      // setGameStarted(false)
     })
 
     socket.on('draw', (data) => {
@@ -317,9 +307,9 @@ export default function RoomPage() {
 
       {!online && <ModalConnection />}
       {!gameStarted &&
-        <div className="text-center ">
-          {onMount && <h1 className={`text-4xl leading-8 delay-75 text-white duration-150 ease-in-out`}>Finding a Random Player</h1>}
-          <p className="text-white font-bold mt-3 text-2xl">{beginMessage}</p>
+        <div className="text-center w-full h-full  leading-3 bg-white ">
+          {onMount && <h1 className={`md:text-4xl text-xl leading-8 delay-75 text-black duration-150 ease-in-out`}>Finding a Random Player</h1>}
+          <p className="text-black font-bold mt-3 md:text-2xl text-xl">{beginMessage}</p>
           {isLoading && <div className="w-full h-full justify-center text-center flex-col items-center ">
             <span>Loading...</span>
           </div>}
@@ -331,11 +321,11 @@ export default function RoomPage() {
             <div className="w-full h-full flex justify-center flex-col items-center">
               <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1>
             </div> :
-            <div className=" min-h-screen w-full">
+            <div className=" min-h-screen w-full bg-blue-700">
               {isLoading && <h1>Loading...</h1>}
 
               {toast && <ToastRoom toastMessage={toastMessage} setToast={setToast} />}
-              {turn !== null && <div className="flex h-full flex-col fixed top-1/2 bg-white    -translate-y-1/2 left-1/2 -translate-x-1/2  z-[7777778888444555] w-full justify-center items-center">
+              {turn !== null && <div className="flex h-full flex-col fixed top-1/2 bg-white  -translate-y-1/2 left-1/2 -translate-x-1/2  z-[7777778888444555] w-full justify-center items-center">
                 <h1 className="leading-6 text-5xl text-red-300 md:animate-scaleUpMd animate-scaleUpSm  font-extrabold"> {turn}</h1>
               </div>}
               {winner && roomId &&
@@ -352,6 +342,7 @@ export default function RoomPage() {
                   />
                 </>
               }
+
               <CreateBoard />
               <div className=" -z-10 bg-blue-400 min-h-[14.625rem]  w-full mt-[-3rem]  rounded-tr-[25%] rounded-tl-[25%] sm:rounded-tr-3xl sm:rounded-tl-3xl"></div>
             </div>}

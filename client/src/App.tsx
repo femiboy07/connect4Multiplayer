@@ -25,15 +25,15 @@ function App() {
 
     socket.emit('welcome', '1111111111111111');
 
-    return () => {
-      socket.on('disconnect', () => {
-        console.log('disconnecteds');
-        setRoomId(null)
-      })
-    }
+    // return () => {
+    //   socket.on('disconnect', () => {
+    //     console.log('disconnecteds');
+    //     setRoomId(null)
+    //   })
+    // }
 
 
-  }, [setRoomId, socket])
+  }, [socket])
 
 
   console.log(data)

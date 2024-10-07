@@ -2,7 +2,7 @@ import React, { createContext,useContext} from 'react';
 import { io, Socket } from 'socket.io-client';
 
 // Replace with your server URL
-const port = process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:3001";
+const port = process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:3000";
 // const protocol = port.startsWith('https') ? 'wss' : 'ws';
 // export const sockerServerUrl = port.replace(/^http/, protocol);
 export const sockectSeverUrl=port;
@@ -10,7 +10,7 @@ export const sockectSeverUrl=port;
 
 // Create a context for the socket
 
-export const socket =io(sockectSeverUrl,{
+export const socket =io("http://localhost:3000",{
     transports:['websocket']
 })
 

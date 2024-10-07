@@ -90,7 +90,6 @@ export default function CreateBoard() {
 
   return (
     <>
-
       <Board
         cellRef={cellRef}
         onClick={handleClick}
