@@ -21,10 +21,7 @@ const router = createBrowserRouter([
 
   },
 
-  {
-    path: '/r',
-    element: <RoomPage />
-  },
+
   {
     path: '/r/:id',
     element: <RoomPage />
