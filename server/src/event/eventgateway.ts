@@ -284,6 +284,9 @@ export class EventsGateway
         game.player2.socket.id === client.id,
     );
 
+    games.player1.socket.disconnect();
+    games.player2.socket.disconnect();
+
     const gameIndex = this.gameManager.games.indexOf(games);
 
     if (gameIndex !== -1) {
