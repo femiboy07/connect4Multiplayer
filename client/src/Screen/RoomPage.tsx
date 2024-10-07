@@ -254,6 +254,9 @@ export default function RoomPage() {
       if (socket.off('gameStarted')) {
         socket.off('gameStarted')
       }
+      socket.on('disconnect', () => {
+        console.log('disconnected')
+      })
 
 
     }
