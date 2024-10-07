@@ -86,9 +86,10 @@ export default function RoomPage() {
     // Check if the page was reloaded
     if (navigationType === "reload") {
 
-      window.location.replace("/");  // Replace the current URL with the home page
+      window.location.replace("/");
+      setRoomId(null) // Replace the current URL with the home page
     }
-  }, []);
+  }, [roomId, setRoomId]);
 
 
   useEffect(() => {
