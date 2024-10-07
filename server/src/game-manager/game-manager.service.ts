@@ -6,7 +6,7 @@ import { Server, Socket } from 'socket.io';
 @Injectable()
 export class GameManagerService {
   public games: GameService[] = [];
-  private users: UserDTO[] = [];
+  public users: UserDTO[] = [];
   pendingUser: UserDTO | null = null;
   private gameTimer: NodeJS.Timeout | null = null;
 
