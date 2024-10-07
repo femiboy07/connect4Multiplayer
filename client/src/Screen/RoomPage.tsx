@@ -108,7 +108,7 @@ export default function RoomPage() {
 
   useEffect(() => {
     preloadedSound();
-
+    setLoading(true)
 
 
 
@@ -141,14 +141,11 @@ export default function RoomPage() {
     })
 
     socket.on('matching', (data) => {
-      // console.log(data)
-      if (!data) {
-        setLoading(true)
-      } else {
-        setBeginMessage(data)
-        setOnMount(true);
-        setLoading(false)
-      }
+
+      setBeginMessage(data)
+      setOnMount(true);
+      setLoading(false)
+
     })
 
     socket.on("gameStarted", (data) => {
