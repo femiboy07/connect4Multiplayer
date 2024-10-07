@@ -33,7 +33,7 @@ function App() {
     }
 
 
-  }, [socket])
+  }, [setRoomId, socket])
 
 
   console.log(data)
