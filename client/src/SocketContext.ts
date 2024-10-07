@@ -10,7 +10,7 @@ export const socketSeverUrl=port;
 
 // Create a context for the socket
 
-export const socket =io(port,{
+export const socket =io(socketSeverUrl,{
     transports:['websocket']
 })
 
