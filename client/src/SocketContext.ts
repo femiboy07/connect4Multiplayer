@@ -5,12 +5,12 @@ import { io, Socket } from 'socket.io-client';
 const port = process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:3001";
 // const protocol = port.startsWith('https') ? 'wss' : 'ws';
 // export const sockerServerUrl = port.replace(/^http/, protocol);
-export const socketSeverUrl=port;
+export const sockerSeverUrl=port;
 
 
 // Create a context for the socket
 
-export const socket =io(socketSeverUrl,{
+export const socket =io(sockerSeverUrl,{
     transports:['websocket']
 })
 
