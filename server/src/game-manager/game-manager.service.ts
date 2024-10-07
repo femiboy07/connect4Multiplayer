@@ -19,11 +19,6 @@ export class GameManagerService {
     this.users.push(user);
     console.log('User added:', user);
 
-    // Handle the user's disconnection
-    // user.socket.on('disconnect', () => {
-    //   this.handleDisconnect(user);
-    // });
-
     // Check if there is a pending user waiting for an opponent
     if (this.pendingUser) {
       // If a pending user exists, create a game with both users
