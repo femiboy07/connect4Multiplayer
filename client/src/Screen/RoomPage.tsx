@@ -97,6 +97,7 @@ export default function RoomPage() {
       // Ensure proper cleanup of socket listeners as well
       socket.emit('leaveRoom', roomId);  // Notify server that the player has left
       window.location.replace("/");
+      socket.disconnect()
     }
   }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, socket]);
 
