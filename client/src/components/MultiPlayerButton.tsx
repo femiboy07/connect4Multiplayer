@@ -17,7 +17,7 @@ export default function MultiPlayerButton({ setIsModal }: { isModal: boolean, se
 
    function initiateOnlineGame() {
       socket.emit('init_game');
-      navigate(`/r`, { replace: true });
+      navigate(`/r/${uuid}`, { replace: true });
    }
 
 
