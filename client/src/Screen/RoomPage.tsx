@@ -108,8 +108,7 @@ export default function RoomPage() {
 
     return () => {
       socket.off('game_started');
-      // window.location.replace('/')
-      // setRoomId(null)
+
 
     }
   }, [gameStarted, roomId, socket])
@@ -236,7 +235,7 @@ export default function RoomPage() {
       socket.off('winner')
       socket.off('player_update');
       socket.off('playerLeft')
-      setRoomId(null)
+
 
     }
   }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage])
