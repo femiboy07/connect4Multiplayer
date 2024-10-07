@@ -88,8 +88,10 @@ export default function RoomPage() {
       setToast(false);
 
       // Force navigation back to home
-      navigate('/', { replace: true });
-    }, [navigate, roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
+      // navigate('/', { replace: true });
+      window.location.replace('/');
+      return ''
+    }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
   )
 
 
