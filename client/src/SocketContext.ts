@@ -10,7 +10,7 @@ export const sockectSeverUrl=port;
 
 // Create a context for the socket
 
-export const socket =io("http://localhost:3000",{
+export const socket =io(port,{
     transports:['websocket']
 })
 
