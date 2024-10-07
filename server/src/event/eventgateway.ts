@@ -46,22 +46,22 @@ export class EventsGateway
     client.emit('welcome_message', 'welcome to connect 4');
     client.emit('ready', 'lets go');
     client.on('disconnecting', () => {
-      for (const room of client.rooms) {
-        if (room !== client.id) {
-          client.to(room).emit('user_has_left', client.id);
-          const games = this.gameManager.games.find(
-            (game) =>
-              game.player1.socket.id === client.id ||
-              game.player2.socket.id === client.id,
-          );
+      // for (const room of client.rooms) {
 
-          const gameIndex = this.gameManager.games.indexOf(games);
+      client.emit('user_has_left', client.id);
+      const games = this.gameManager.games.find(
+        (game) =>
+          game.player1.socket.id === client.id ||
+          game.player2.socket.id === client.id,
+      );
 
-          if (gameIndex !== -1) {
-            this.gameManager.games.splice(gameIndex, 1);
-          }
-        }
+      const gameIndex = this.gameManager.games.indexOf(games);
+
+      if (gameIndex !== -1) {
+        this.gameManager.games.splice(gameIndex, 1);
       }
+
+      // }
     });
   }
 

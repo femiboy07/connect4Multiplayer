@@ -9,15 +9,23 @@ export class GameManagerService {
   private users: UserDTO[] = [];
   pendingUser: UserDTO | null = null;
   private gameTimer: NodeJS.Timeout | null = null;
+
   addUser(user: UserDTO, server: Server) {
     if (user.socket) {
       this.users.push(user);
       console.log(user);
 
+      // Handle the case where the user reloads or disconnects
+      user.socket.on('disconnect', () => {
+        this.handleDisconnect(user);
+      });
+
+      // Handle when a pending user is found
       if (this.pendingUser && user) {
         const roomId = uuidv4();
         const game = new GameService(this.pendingUser, user);
 
+        // Join both users to the room
         user.socket.join(roomId);
         this.pendingUser.socket.join(roomId);
 
@@ -28,15 +36,18 @@ export class GameManagerService {
         user.socket.emit('room_joined', roomId);
         this.pendingUser.socket.emit('room_joined', roomId);
 
-        // Clear any active game timer
+        // Clear the game timer if it was running
         if (this.gameTimer) {
           clearInterval(this.gameTimer);
         }
+
+        // Reset pending user
         this.pendingUser = null;
       } else {
+        // No match found yet, set this user as pending
         this.pendingUser = user;
 
-        // Start countdown if no opponent is found immediately
+        // Start the countdown for finding an opponent
         let gameTimerSeconds = 30;
         this.gameTimer = setInterval(() => {
           if (gameTimerSeconds > 0) {
@@ -46,18 +57,35 @@ export class GameManagerService {
             );
             gameTimerSeconds--;
           } else {
+            // No match found after the countdown
             user.socket.emit('no_match', 'No match was found');
             clearInterval(this.gameTimer); // Stop the timer
-            // Remove pending user
-            this.users = this.users.filter(
-              (u) => u.socket.id !== user.socket.id,
-            );
-            this.pendingUser = null; // Clear the pending user
+
+            // Remove the user from pending state and users list
+            this.handleDisconnect(user);
           }
         }, 1000);
       }
     } else {
       throw new Error('User socket is needed');
+    }
+  }
+
+  // Handle user disconnection
+  handleDisconnect(user: UserDTO) {
+    console.log(`User disconnected: ${user.socket.id}`);
+
+    // Remove the user from the users list
+    this.users = this.users.filter((u) => u.socket.id !== user.socket.id);
+
+    // Check if the user was the pending user
+    if (this.pendingUser && this.pendingUser.socket.id === user.socket.id) {
+      this.pendingUser = null;
+
+      // Clear any active game timer
+      if (this.gameTimer) {
+        clearInterval(this.gameTimer);
+      }
     }
   }
 
