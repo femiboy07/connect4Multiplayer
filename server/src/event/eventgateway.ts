@@ -47,6 +47,7 @@ export class EventsGateway
     client.emit('ready', 'lets go');
     client.on('disconnecting', () => {
       // for (const room of client.rooms) {
+      this.gameManager.handleDisconnect(client);
       this.gameManager.users.filter((u) => u.socket.id !== client.id);
       client.emit('user_has_left', client.id);
       const games = this.gameManager.games.find(

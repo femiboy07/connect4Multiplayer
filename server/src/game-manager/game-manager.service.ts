@@ -20,9 +20,9 @@ export class GameManagerService {
     console.log('User added:', user);
 
     // Handle the user's disconnection
-    user.socket.on('disconnect', () => {
-      this.handleDisconnect(user);
-    });
+    // user.socket.on('disconnect', () => {
+    //   this.handleDisconnect(user);
+    // });
 
     // Check if there is a pending user waiting for an opponent
     if (this.pendingUser) {
@@ -68,21 +68,20 @@ export class GameManagerService {
           clearInterval(this.gameTimer); // Clear the timer
 
           // Remove the user from the pending state and users list
-          this.handleDisconnect(user);
         }
       }, 1000);
     }
   }
 
   // Handle disconnection (including page reloads)
-  handleDisconnect(user: UserDTO) {
-    console.log(`User disconnected: ${user.socket.id}`);
+  handleDisconnect(user: Socket) {
+    console.log(`User disconnected: ${user.id}`);
 
     // Remove the user from the users list
-    this.users = this.users.filter((u) => u.socket.id !== user.socket.id);
+    this.users = this.users.filter((u) => u.socket.id !== user.id);
 
     // If the user was in a pending state, remove them from the pending state
-    if (this.pendingUser && this.pendingUser.socket.id === user.socket.id) {
+    if (this.pendingUser && this.pendingUser.socket.id === user.id) {
       this.pendingUser = null;
 
       // Clear any active game timer
