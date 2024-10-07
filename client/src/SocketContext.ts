@@ -3,14 +3,14 @@ import { io, Socket } from 'socket.io-client';
 
 // Replace with your server URL
 const port = process.env.REACT_APP_WEBSOCKET_URL || "http://localhost:3001";
-// const protocol = port.startsWith('https') ? 'wss' : 'ws';
-// export const sockerServerUrl = port.replace(/^http/, protocol);
-export const sockerSeverUrl=port;
+const protocol = port.startsWith('https') ? 'wss' : 'ws';
+export const sockerServerUrl = port.replace(/^http/, protocol);
+export const sockectSeverUrl=sockerServerUrl;
 
 
 // Create a context for the socket
 
-export const socket =io(sockerSeverUrl,{
+export const socket =io(sockectSeverUrl,{
     transports:['websocket']
 })
 
