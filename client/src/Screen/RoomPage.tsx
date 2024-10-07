@@ -114,9 +114,7 @@ export default function RoomPage() {
   useEffect(() => {
     preloadedSound();
 
-    if (!gameStarted) {
-      setRoomId(null)
-    }
+
 
     if (!online) {
       // navigate('/', { replace: true })
@@ -238,9 +236,10 @@ export default function RoomPage() {
       socket.off('player_update');
       socket.off('playerLeft');
       socket.off('game_started')
-      socket.off('gameStarted');
+
       if (!roomId) {
-        window.location.replace('/')
+        // window.location.replace('/')
+        socket.off('gameStarted');
       }
     }
   }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage, roomId, gameStarted])
