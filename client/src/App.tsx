@@ -23,8 +23,9 @@ function App() {
 
     socket.emit('welcome', '1111111111111111');
 
-
-
+    return () => {
+      socket.emit('disconnecting')
+    }
   }, [socket])
 
 
