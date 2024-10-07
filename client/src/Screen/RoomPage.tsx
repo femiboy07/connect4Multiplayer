@@ -255,7 +255,8 @@ export default function RoomPage() {
         socket.off('gameStarted')
       }
       socket.on('disconnect', () => {
-        console.log('disconnected')
+        console.log('disconnected');
+        setRoomId(null)
       })
 
 

@@ -4,11 +4,13 @@ import ModalInput from './components/Modal';
 import { Menu } from './Screen/Menu';
 import { useSocket } from './SocketContext';
 import RoomPage from './Screen/RoomPage';
+import { useManageRoomContext } from './components/Context/MangaeRoomSocket';
 
 function App() {
   const [data, setData] = useState(null);
   const [isModal, setIsModal] = useState<boolean>(true);
-  const socket = useSocket()
+  const socket = useSocket();
+  const { setRoomId } = useManageRoomContext()
 
 
   useEffect(() => {
@@ -23,6 +25,12 @@ function App() {
 
     socket.emit('welcome', '1111111111111111');
 
+    return () => {
+      socket.on('disconnect', () => {
+        console.log('disconnecteds');
+        setRoomId(null)
+      })
+    }
 
 
   }, [socket])
