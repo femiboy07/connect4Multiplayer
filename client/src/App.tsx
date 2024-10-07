@@ -24,7 +24,7 @@ function App() {
     socket.emit('welcome', '1111111111111111');
 
     return () => {
-      window.location.reload()
+      window.location.replace('/')
     }
 
   }, [socket])
