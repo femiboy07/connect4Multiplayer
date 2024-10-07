@@ -274,21 +274,20 @@ export class EventsGateway
 
   handleDisconnect(@ConnectedSocket() client: Socket) {
     console.log(client);
-    client.on('disconnecting', () => {
-      this.gameManager.handleDisconnect(client);
-      this.gameManager.users.filter((u) => u.socket.id !== client.id);
-      client.emit('user_has_left', client.id);
-      const games = this.gameManager.games.find(
-        (game) =>
-          game.player1.socket.id === client.id ||
-          game.player2.socket.id === client.id,
-      );
 
-      const gameIndex = this.gameManager.games.indexOf(games);
+    this.gameManager.handleDisconnect(client);
+    this.gameManager.users.filter((u) => u.socket.id !== client.id);
+    client.emit('user_has_left', client.id);
+    const games = this.gameManager.games.find(
+      (game) =>
+        game.player1.socket.id === client.id ||
+        game.player2.socket.id === client.id,
+    );
 
-      if (gameIndex !== -1) {
-        this.gameManager.games.splice(gameIndex, 1);
-      }
-    });
+    const gameIndex = this.gameManager.games.indexOf(games);
+
+    if (gameIndex !== -1) {
+      this.gameManager.games.splice(gameIndex, 1);
+    }
   }
 }
