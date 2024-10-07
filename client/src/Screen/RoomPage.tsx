@@ -72,9 +72,9 @@ export default function RoomPage() {
     return () => {
       // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      setRoomId(null)
+      // setRoomId(null)
       if (roomId) {
-        window.location.replace('/');
+        // window.location.replace('/');
         navigate('/', { replace: true })
       }
     };
