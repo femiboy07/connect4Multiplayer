@@ -87,9 +87,9 @@ export default function RoomPage() {
     if (navigationType === "reload") {
 
       window.location.replace("/");
-      setRoomId(null) // Replace the current URL with the home page
+      // Replace the current URL with the home page
     }
-  }, [roomId, setRoomId]);
+  }, []);
 
 
   useEffect(() => {
@@ -106,9 +106,10 @@ export default function RoomPage() {
 
     return () => {
       socket.off('game_started');
+      setRoomId(null)
 
     }
-  }, [gameStarted, roomId, socket])
+  }, [gameStarted, roomId, socket, setRoomId])
 
   useEffect(() => {
     preloadedSound();
@@ -132,11 +133,11 @@ export default function RoomPage() {
 
     })
 
-    socket.on('user_has_left', (data) => {
-      console.log(data)
+    // socket.on('user_has_left', (data) => {
+    //   console.log(data)
 
-      socket.disconnect()
-    })
+    //   socket.disconnect()
+    // })
 
     socket.on('score_update', (data) => {
       setScore(data)
