@@ -51,34 +51,34 @@ export default function RoomPage() {
 
 
 
-  useEffect(() => {
-    const handleBeforeUnload = (e: any) => {
-      // Emit leaveRoom event to notify the server
-      socket.emit('leaveRoom', roomId);
-      e.preventDefault()
+  // useEffect(() => {
+  //   const handleBeforeUnload = (e: any) => {
+  //     // Emit leaveRoom event to notify the server
+  //     socket.emit('leaveRoom', roomId);
+  //     e.preventDefault()
 
-      // Perform cleanup and disconnect socket
-      setGameStarted(false);
-      setRoomId(null)
-      navigate('/', { replace: true })
-
-
-    };
-
-    // Add the event listener for beforeunload
-    window.addEventListener('beforeunload', handleBeforeUnload);
+  //     // Perform cleanup and disconnect socket
+  //     setGameStarted(false);
+  //     setRoomId(null)
+  //     navigate('/', { replace: true })
 
 
-    return () => {
-      // Remove the event listener when the component unmounts
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      // setRoomId(null)
-      if (roomId) {
-        window.location.replace('/');
-        // navigate('/', { replace: true })
-      }
-    };
-  }, [setGameStarted, socket, navigate, roomId, setRoomId]);
+  //   };
+
+  //   // Add the event listener for beforeunload
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+
+
+  //   return () => {
+  //     // Remove the event listener when the component unmounts
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+
+  //     if (roomId) {
+  //       window.location.replace('/');
+
+  //     }
+  //   };
+  // }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
 
   useEffect(() => {
