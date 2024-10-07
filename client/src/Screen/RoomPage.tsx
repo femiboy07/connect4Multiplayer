@@ -50,46 +50,37 @@ export default function RoomPage() {
 
 
 
-
   useEffect(() => {
     const handleBeforeUnload = (e: any) => {
       // Emit leaveRoom event to notify the server
       socket.emit('leaveRoom', roomId);
-      e.preventDefault()
+      e.preventDefault();
 
       // Perform cleanup and disconnect socket
       setGameStarted(false);
-      setRoomId(null)
+      setRoomId(null);
+      setPlayer1(null);
+      setPlayer2(null);
+      setToast(false);
 
-      navigate('/', { replace: true })
-
-
+      // Force navigation back to home
+      navigate('/', { replace: true });
     };
 
-    // Add the event listener for beforeunload
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-
     return () => {
-      // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);
-
-
-      if (roomId) {
-
-        window.location.replace('/');
-        socket.on('matching', (data) => {
-
-          setBeginMessage(data)
-          setOnMount(true);
-          setLoading(false)
-
-        })
-
-
-      }
     };
-  }, [setGameStarted, socket, navigate, roomId, setRoomId]);
+  }, [socket, roomId, navigate]);
+
+  useEffect(() => {
+    // Check if the room ID is available or not
+    if (!roomId || !gameStarted) {
+      // Redirect to home page if the room is not available or the game hasn't started
+      navigate('/', { replace: true });
+    }
+  }, [roomId, gameStarted, navigate]);
 
 
 
