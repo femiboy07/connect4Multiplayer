@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSocket } from "../SocketContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useBeforeUnload, useNavigate, useParams } from "react-router-dom";
 import CreateBoard from "../components/CreateBoard";
 import ModalWinner from "../components/Context/ModalWinner";
 import ToastRoom from "../components/ToastRoom";
@@ -50,9 +50,33 @@ export default function RoomPage() {
 
 
 
-  useEffect(() => {
-    const handleBeforeUnload = (e: any) => {
-      // Emit leaveRoom event to notify the server
+  // useEffect(() => {
+  //   const handleBeforeUnload = (e: any) => {
+  //     // Emit leaveRoom event to notify the server
+  //     socket.emit('leaveRoom', roomId);
+  //     e.preventDefault();
+
+  //     // Perform cleanup and disconnect socket
+  //     setGameStarted(false);
+  //     setRoomId(null);
+  //     setPlayer1(null);
+  //     setPlayer2(null);
+  //     setToast(false);
+
+  //     // Force navigation back to home
+  //     navigate('/', { replace: true });
+  //   };
+
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, [socket, roomId, navigate, setGameStarted, setRoomId, setPlayer1, setPlayer2, setToast]);
+
+
+  useBeforeUnload(
+    useCallback((e: any) => {
       socket.emit('leaveRoom', roomId);
       e.preventDefault();
 
@@ -65,16 +89,8 @@ export default function RoomPage() {
 
       // Force navigation back to home
       navigate('/', { replace: true });
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [socket, roomId, navigate, setGameStarted, setRoomId, setPlayer1, setPlayer2, setToast]);
-
-
+    }, [navigate, roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
+  )
 
 
   // useEffect(() => {
