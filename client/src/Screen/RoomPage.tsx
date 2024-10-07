@@ -230,6 +230,7 @@ export default function RoomPage() {
       socket.off("room_joined")
       socket.off('invalid_turn')
       socket.off('updateState')
+      socket.off('gameStarted')
       socket.off('winner')
       socket.off('player_update');
       socket.off('playerLeft');
