@@ -82,18 +82,22 @@ export default function RoomPage() {
   }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
 
+
   useEffect(() => {
     const entries = performance.getEntriesByType("navigation");
     const navigationType = entries.length > 0 ? (entries[0] as PerformanceNavigationTiming).type : null;
 
-    // Check if the page was reloaded
     if (navigationType === "reload") {
-
+      // Reset relevant states
+      setGameStarted(false);
+      setRoomId(null);
+      setPlayer1(null);
+      setPlayer2(null);
+      // Ensure proper cleanup of socket listeners as well
+      socket.emit('leaveRoom', roomId);  // Notify server that the player has left
       window.location.replace("/");
-      // Replace the current URL with the home page
     }
-  }, []);
-
+  }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, socket]);
 
   useEffect(() => {
     setLoading(true);
@@ -157,22 +161,24 @@ export default function RoomPage() {
 
     socket.on("gameStarted", (data) => {
       console.log(data, "gameStarted")
+      if (data.player1 && data.player2) {
+        setGameStarted(true);
+        setLoading(false)
 
-      setGameStarted(true);
-      setLoading(false)
+        setReload(false)
 
-      setReload(false)
+        // setGameState(data)
+        setBoard(data.board)
+        setPlayer1(data.player1)
+        setPlayer2(data.player2);
+        setCurrentPlayer(data.currentPlayer);
+        socket.off('matching')
+        socket.off('no_match')
+        socket.on('time', (data) => {
+          setScore(data)
+        })
+      }
 
-      // setGameState(data)
-      setBoard(data.board)
-      setPlayer1(data.player1)
-      setPlayer2(data.player2);
-      setCurrentPlayer(data.currentPlayer)
-      socket.off('matching')
-      socket.off('no_match')
-      socket.on('time', (data) => {
-        setScore(data)
-      })
     })
 
     socket.on('no_match', (data) => {
