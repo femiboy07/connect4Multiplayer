@@ -304,7 +304,10 @@ export default function RoomPage() {
       {gameStarted && (
         <>
           {!online && <ModalConnection />}
-          {!roomId ? <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1> :
+          {!roomId ?
+            <div className="w-full h-full flex justify-center items-center">
+              <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1>
+            </div> :
             <div className=" min-h-screen w-full">
               {isLoading && <h1>Loading...</h1>}
 
