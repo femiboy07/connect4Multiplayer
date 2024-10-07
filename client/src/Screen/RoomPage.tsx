@@ -143,7 +143,7 @@ export default function RoomPage() {
       console.log(data);
       if (data) {
         setRoomId(data);
-        navigate(`/r/${data}`, { replace: true })
+        // navigate(`/r/${data}`, { replace: true })
 
       } // Update the state with the room ID
 
