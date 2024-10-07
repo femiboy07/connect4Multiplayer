@@ -283,14 +283,15 @@ export default function RoomPage() {
   return (
     <>
       {/* {!roomId && <div>No room found</div>} */}
-      {isLoading && <div className="w-full h-full justify-center flex-col items-center ">
-        <span>Loading...</span>
-      </div>}
+
       {!online && <ModalConnection />}
       {!gameStarted &&
         <div className="text-center ">
           {onMount && <h1 className={`text-4xl leading-8 delay-75 text-white duration-150 ease-in-out`}>Finding a Random Player</h1>}
           <p className="text-white font-bold mt-3 text-2xl">{beginMessage}</p>
+          {isLoading && <div className="w-full h-full justify-center flex-col items-center ">
+            <span>Loading...</span>
+          </div>}
         </div>}
       {gameStarted && (
         <div className="">
