@@ -72,15 +72,8 @@ export default function RoomPage() {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [socket, roomId, navigate]);
+  }, [socket, roomId, navigate, setGameStarted, setRoomId, setPlayer1, setPlayer2, setToast]);
 
-  useEffect(() => {
-    // Check if the room ID is available or not
-    if (!roomId || !isLoading) {
-      // Redirect to home page if the room is not available or the game hasn't started
-      navigate('/', { replace: true });
-    }
-  }, [roomId, isLoading, navigate]);
 
 
 
@@ -234,11 +227,11 @@ export default function RoomPage() {
       socket.off('player_update');
       socket.off('playerLeft');
       socket.off('game_started')
-
-      if (!roomId) {
-        // window.location.replace('/')
-        socket.off('gameStarted');
+      if (socket.off('gameStarted')) {
+        socket.off('gameStarted')
       }
+
+
     }
   }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage, roomId, gameStarted])
 
