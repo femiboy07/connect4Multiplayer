@@ -10,7 +10,7 @@ export const sockectSeverUrl=port;
 
 // Create a context for the socket
 
-export const socket =io(sockectSeverUrl,{
+export const socket =io("https://serverconnect-kxhn.onrender.com/",{
     transports:['websocket']
 })
 
