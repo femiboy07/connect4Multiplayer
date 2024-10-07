@@ -16,10 +16,11 @@ import { GameManagerService } from 'src/game-manager/game-manager.service';
 import { INIT_GAME, MOVE_DISC } from 'src/message/messageevents';
 
 @WebSocketGateway({
+  transports: ['websocket'],
   cors: {
     origin: [
-      'http://localhost:3001',
       'https://connect4-multi-player.vercel.app/',
+      'http://localhost:3001',
     ],
   },
 })
