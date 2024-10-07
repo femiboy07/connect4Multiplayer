@@ -105,23 +105,14 @@ export default function RoomPage() {
   }, [])
 
 
-  useEffect(() => {
 
-    if (gameStarted) {
-      socket.emit('game_started', roomId);
-    }
-
-    return () => {
-      socket.off('game_started');
-
-
-    }
-  }, [gameStarted, roomId, socket])
 
   useEffect(() => {
     preloadedSound();
 
-
+    if (gameStarted) {
+      socket.emit('game_started', roomId);
+    }
 
     if (!online) {
       // navigate('/', { replace: true })
@@ -174,9 +165,7 @@ export default function RoomPage() {
         setCurrentPlayer(data.currentPlayer);
         socket.off('matching')
         socket.off('no_match')
-        socket.on('time', (data) => {
-          setScore(data)
-        })
+
       }
 
     })
@@ -245,7 +234,7 @@ export default function RoomPage() {
 
 
     }
-  }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage])
+  }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage, gameStarted, roomId])
 
 
   useEffect(() => {
