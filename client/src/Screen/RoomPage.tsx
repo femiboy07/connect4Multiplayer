@@ -75,7 +75,7 @@ export default function RoomPage() {
 
       if (roomId) {
         window.location.replace('/');
-        setRoomId(null)
+
 
       }
     };
@@ -152,7 +152,7 @@ export default function RoomPage() {
 
     socket.on("gameStarted", (data) => {
       console.log(data, "gameStarted")
-      if (data.player1 && data.player2) {
+      if (data.player1 !== undefined && data.player2 !== undefined) {
         setGameStarted(true);
         setLoading(false)
 
@@ -230,7 +230,8 @@ export default function RoomPage() {
       socket.off('updateState')
       socket.off('winner')
       socket.off('player_update');
-      socket.off('playerLeft')
+      socket.off('playerLeft');
+      socket.off('game_started')
 
 
     }
