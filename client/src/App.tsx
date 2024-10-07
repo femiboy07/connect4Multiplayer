@@ -5,12 +5,15 @@ import { Menu } from './Screen/Menu';
 import { useSocket } from './SocketContext';
 import RoomPage from './Screen/RoomPage';
 import { useManageRoomContext } from './components/Context/MangaeRoomSocket';
+import { useSocketDisconnected } from './hooks/useSocketDisconnected';
+import ModalConnection from './components/ModalConnection';
 
 function App() {
   const [data, setData] = useState(null);
   const [isModal, setIsModal] = useState<boolean>(true);
   const socket = useSocket();
-  const { setRoomId } = useManageRoomContext()
+  const { setRoomId } = useManageRoomContext();
+  const online = useSocketDisconnected()
 
 
   useEffect(() => {
@@ -43,6 +46,7 @@ function App() {
       <div className="bg-blue-600 w-full min-h-screen overflow-y-auto">
         <div className='w-full flex justify-center h-screen items-center'>
           {isModal && <Menu isModal={isModal} setIsModal={setIsModal} />}
+          {!online && <ModalConnection />}
 
         </div>
       </div>
