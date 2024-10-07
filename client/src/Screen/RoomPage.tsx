@@ -74,8 +74,8 @@ export default function RoomPage() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       // setRoomId(null)
       if (roomId) {
-        // window.location.replace('/');
-        navigate('/', { replace: true })
+        window.location.replace('/');
+        // navigate('/', { replace: true })
       }
     };
   }, [setGameStarted, socket, navigate, roomId, setRoomId]);
