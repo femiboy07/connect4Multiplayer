@@ -76,7 +76,7 @@ export default function RoomPage() {
 
 
       if (roomId) {
-        socket.disconnect()
+
         window.location.replace('/');
 
 
@@ -86,22 +86,22 @@ export default function RoomPage() {
 
 
 
-  useEffect(() => {
-    const entries = performance.getEntriesByType("navigation");
-    const navigationType = entries.length > 0 ? (entries[0] as PerformanceNavigationTiming).type : null;
+  // useEffect(() => {
+  //   const entries = performance.getEntriesByType("navigation");
+  //   const navigationType = entries.length > 0 ? (entries[0] as PerformanceNavigationTiming).type : null;
 
-    if (navigationType === "reload") {
-      // Reset relevant states
-      setGameStarted(false);
-      setRoomId(null);
-      setPlayer1(null);
-      setPlayer2(null);
-      // Ensure proper cleanup of socket listeners as well
-      socket.emit('leaveRoom', roomId);  // Notify server that the player has left
-      window.location.replace("/");
+  //   if (navigationType === "reload") {
+  //     // Reset relevant states
+  //     setGameStarted(false);
+  //     setRoomId(null);
+  //     setPlayer1(null);
+  //     setPlayer2(null);
+  //     // Ensure proper cleanup of socket listeners as well
+  //     socket.emit('leaveRoom', roomId);  // Notify server that the player has left
+  //     window.location.replace("/");
 
-    }
-  }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, socket]);
+  //   }
+  // }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, socket]);
 
   useEffect(() => {
     setLoading(true);
