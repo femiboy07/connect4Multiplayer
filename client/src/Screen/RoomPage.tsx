@@ -73,9 +73,10 @@ export default function RoomPage() {
       // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);
       setRoomId(null)
-      // if (roomId) {
-      //   window.location.replace('/')
-      // }
+      if (roomId) {
+        window.location.replace('/');
+        navigate('/', { replace: true })
+      }
     };
   }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
@@ -305,7 +306,7 @@ export default function RoomPage() {
         <>
           {!online && <ModalConnection />}
           {!roomId ?
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-full flex justify-center flex-col items-center">
               <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1>
             </div> :
             <div className=" min-h-screen w-full">
