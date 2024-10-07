@@ -91,7 +91,10 @@ export default function RoomPage() {
   }, []);
 
 
+  useEffect(() => {
+    setLoading(true);
 
+  }, [])
 
 
   useEffect(() => {
@@ -108,7 +111,6 @@ export default function RoomPage() {
 
   useEffect(() => {
     preloadedSound();
-    setLoading(true)
 
 
 
@@ -289,7 +291,7 @@ export default function RoomPage() {
         <div className="text-center ">
           {onMount && <h1 className={`text-4xl leading-8 delay-75 text-white duration-150 ease-in-out`}>Finding a Random Player</h1>}
           <p className="text-white font-bold mt-3 text-2xl">{beginMessage}</p>
-          {isLoading && <div className="w-full h-full justify-center flex-col items-center ">
+          {isLoading && <div className="w-full h-full justify-center text-center flex-col items-center ">
             <span>Loading...</span>
           </div>}
         </div>}
