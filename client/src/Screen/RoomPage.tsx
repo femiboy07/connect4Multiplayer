@@ -73,11 +73,11 @@ export default function RoomPage() {
       // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);
       setRoomId(null)
-      if (roomId) {
-        window.location.replace('/')
-      }
+      // if (roomId) {
+      //   window.location.replace('/')
+      // }
     };
-  }, [roomId, setGameStarted, socket, navigate, setRoomId]);
+  }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
 
   useEffect(() => {
@@ -306,6 +306,7 @@ export default function RoomPage() {
           {!online && <ModalConnection />}
           <div className=" min-h-screen w-full">
             {isLoading && <h1>Loading...</h1>}
+            {!roomId && <h1 className="text-5xl text-center">The Game room Your trying to access is not available</h1>}
             {toast && <ToastRoom toastMessage={toastMessage} setToast={setToast} />}
             {turn !== null && <div className="flex h-full flex-col fixed top-1/2 bg-white    -translate-y-1/2 left-1/2 -translate-x-1/2  z-[7777778888444555] w-full justify-center items-center">
               <h1 className="leading-6 text-5xl text-red-300 md:animate-scaleUpMd animate-scaleUpSm  font-extrabold"> {turn}</h1>
