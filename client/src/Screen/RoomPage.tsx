@@ -106,7 +106,7 @@ export default function RoomPage() {
 
     return () => {
       socket.off('game_started');
-      window.location.replace('/')
+      // window.location.replace('/')
       // setRoomId(null)
 
     }
