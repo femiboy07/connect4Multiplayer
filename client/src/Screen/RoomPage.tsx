@@ -154,6 +154,7 @@ export default function RoomPage() {
       console.log(data, "gameStarted")
 
       setGameStarted(true);
+      setLoading(false)
 
       setReload(false)
 
