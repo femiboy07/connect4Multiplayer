@@ -276,13 +276,13 @@ export default function RoomPage() {
 
 
   useEffect(() => {
-    if (gameStarted && sounds.sound1) {
+    if (gameStarted && sounds.sound1 && roomId) {
       console.log('Playing sound as game starts');
       sounds.sound1?.play()
     } else if (gameStarted && !sounds.sounds1) {
       console.warn('Game started but sound not preloaded yet');
     }
-  }, [sounds, gameStarted]);
+  }, [sounds, gameStarted, roomId]);
 
 
 
