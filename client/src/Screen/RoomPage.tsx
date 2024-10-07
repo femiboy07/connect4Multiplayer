@@ -60,8 +60,8 @@ export default function RoomPage() {
       // Perform cleanup and disconnect socket
       setGameStarted(false);
       setRoomId(null)
-      navigate('/', { replace: true })
-
+      // navigate('/', { replace: true })
+      window.location.replace('/');
 
     };
 
