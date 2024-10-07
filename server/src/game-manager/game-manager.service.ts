@@ -6,7 +6,7 @@ import { Server, Socket } from 'socket.io';
 @Injectable()
 export class GameManagerService {
   public games: GameService[] = [];
-  public users: UserDTO[] = [];
+  private users: UserDTO[] = [];
   pendingUser: UserDTO | null = null;
   private gameTimer: NodeJS.Timeout | null = null;
 
@@ -73,22 +73,25 @@ export class GameManagerService {
     console.log(`User disconnected: ${user.id}`);
 
     // Remove the user from the users list
-    this.users = this.users.filter((u) => u.socket.id !== user.id);
-
-    // If the user was in a pending state, remove them from the pending state
-    if (this.pendingUser && this.pendingUser.socket.id === user.id) {
-      this.pendingUser = null;
-
-      // Clear any active game timer
-      if (this.gameTimer) {
-        clearInterval(this.gameTimer);
-      }
-
-      console.log('Pending user disconnected and was removed.');
+    // Stop any existing game timer
+    if (this.gameTimer) {
+      clearInterval(this.gameTimer);
+      this.gameTimer = null;
     }
 
+    // Remove the user from pending and users list
+    if (this.pendingUser && this.pendingUser.socket.id === user.id) {
+      this.pendingUser = null;
+    }
+
+    const userIndex = this.users.findIndex((u) => u.socket.id === user.id);
+    if (userIndex !== -1) {
+      this.users.splice(userIndex, 1); // Remove the user from the users list
+    }
+    console.log('Pending user disconnected and was removed.');
     // You could add additional cleanup logic for games if needed
   }
+
   startGame(game: GameService, roomId: string, server: Server) {
     if (!game) {
       throw Error('game not found');

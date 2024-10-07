@@ -96,6 +96,11 @@ export class EventsGateway
     }
   }
 
+  @SubscribeMessage('stop_searching_players')
+  handleStopSearch(@ConnectedSocket() client: Socket) {
+    this.gameManager.handleDisconnect(client);
+  }
+
   @SubscribeMessage('rematchRequest')
   handleRematch(
     @MessageBody() data: { roomId: string },
@@ -275,14 +280,17 @@ export class EventsGateway
   handleDisconnect(@ConnectedSocket() client: Socket) {
     console.log(client);
 
-    this.gameManager.handleDisconnect(client);
-    this.gameManager.users.filter((u) => u.socket.id !== client.id);
+    // this.gameManager.handleDisconnect(client);
+    // this.gameManager.users.filter((u) => u.socket.id !== client.id);
     client.emit('user_has_left', client.id);
     const games = this.gameManager.games.find(
       (game) =>
         game.player1.socket.id === client.id ||
         game.player2.socket.id === client.id,
     );
+    if (!games) {
+      return;
+    }
 
     games.player1.socket.disconnect();
     games.player2.socket.disconnect();
