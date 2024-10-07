@@ -73,6 +73,7 @@ export default function RoomPage() {
       // Remove the event listener when the component unmounts
       window.removeEventListener('beforeunload', handleBeforeUnload);
 
+
       if (roomId) {
         window.location.replace('/');
 
@@ -126,8 +127,9 @@ export default function RoomPage() {
       console.log(data);
       if (data) {
         setRoomId(data);
+        navigate(`/r/${data}`, { replace: true })
+
       } // Update the state with the room ID
-      navigate(`/r/${data}`, { replace: true })
 
     })
 
