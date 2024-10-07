@@ -14,7 +14,7 @@ export class GameManagerService {
       this.users.push(user);
       console.log(user);
 
-      if (this.pendingUser && this.pendingUser !== user) {
+      if (this.pendingUser && user) {
         const roomId = uuidv4();
         const game = new GameService(this.pendingUser, user);
 
