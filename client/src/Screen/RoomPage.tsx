@@ -75,12 +75,12 @@ export default function RoomPage() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
 
 
-      if (roomId) {
+      // if (roomId) {
 
-        window.location.replace('/');
+      //   window.location.replace('/');
 
 
-      }
+      // }
     };
   }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
