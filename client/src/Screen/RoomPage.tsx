@@ -78,6 +78,13 @@ export default function RoomPage() {
       if (roomId) {
 
         window.location.replace('/');
+        socket.on('matching', (data) => {
+
+          setBeginMessage(data)
+          setOnMount(true);
+          setLoading(false)
+
+        })
 
 
       }
