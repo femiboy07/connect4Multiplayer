@@ -75,29 +75,29 @@ export default function RoomPage() {
   // }, [socket, roomId, navigate, setGameStarted, setRoomId, setPlayer1, setPlayer2, setToast]);
 
 
-  useBeforeUnload(
-    useCallback((e: any) => {
+  // useBeforeUnload(
+  //   useCallback((e: any) => {
 
-      e.preventDefault();
+  //     // e.preventDefault();
 
-      // Perform cleanup and disconnect socket
-      setGameStarted(false);
-      setRoomId(null);
-      setPlayer1(null);
-      setPlayer2(null);
-      setToast(false);
+  //     // Perform cleanup and disconnect socket
+  //     setGameStarted(false);
+  //     setRoomId(null);
+  //     setPlayer1(null);
+  //     setPlayer2(null);
+  //     setToast(false);
 
-      socket.on('disconnect', () => {
-        socket.emit('leaveRoom', roomId);
-        window.location.replace('/');
-      })
+  //     socket.on('disconnect', () => {
+  //       socket.emit('leaveRoom', roomId);
+  //       window.location.replace('/');
+  //     })
 
-      // Force navigation back to home
-      // navigate('/', { replace: true });
+  //     // Force navigation back to home
+  //     // navigate('/', { replace: true });
 
-      return ''
-    }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
-  )
+  //     return ''
+  //   }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
+  // )
 
 
   useEffect(() => {
@@ -106,6 +106,7 @@ export default function RoomPage() {
 
     if (navigationType === "reload") {
       // Reset relevant states
+      socket.emit('leaveRoom', roomId)
       setGameStarted(false);
       setRoomId(null);
       setPlayer1(null);
