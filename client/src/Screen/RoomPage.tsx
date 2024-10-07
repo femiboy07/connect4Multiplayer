@@ -60,8 +60,8 @@ export default function RoomPage() {
       // Perform cleanup and disconnect socket
       setGameStarted(false);
       setRoomId(null)
-      // navigate('/', { replace: true })
-      window.location.replace('/');
+      navigate('/', { replace: true })
+
 
     };
 
@@ -75,23 +75,24 @@ export default function RoomPage() {
 
       if (roomId) {
         window.location.replace('/');
+        setRoomId(null)
 
       }
     };
   }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
 
-  // useEffect(() => {
-  //   const entries = performance.getEntriesByType("navigation");
-  //   const navigationType = entries.length > 0 ? (entries[0] as PerformanceNavigationTiming).type : null;
+  useEffect(() => {
+    const entries = performance.getEntriesByType("navigation");
+    const navigationType = entries.length > 0 ? (entries[0] as PerformanceNavigationTiming).type : null;
 
-  //   // Check if the page was reloaded
-  //   if (navigationType === "reload") {
+    // Check if the page was reloaded
+    if (navigationType === "reload") {
 
-  //     window.location.replace("/");
-  //     // Replace the current URL with the home page
-  //   }
-  // }, []);
+      window.location.replace("/");
+      // Replace the current URL with the home page
+    }
+  }, []);
 
 
   useEffect(() => {
