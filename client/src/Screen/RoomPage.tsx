@@ -75,12 +75,12 @@ export default function RoomPage() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
 
 
-      // if (roomId) {
+      if (roomId) {
 
-      //   window.location.replace('/');
+        window.location.replace('/');
 
 
-      // }
+      }
     };
   }, [setGameStarted, socket, navigate, roomId, setRoomId]);
 
@@ -239,8 +239,9 @@ export default function RoomPage() {
       socket.off('playerLeft');
       socket.off('game_started')
       socket.off('gameStarted');
-      window.location.replace('/')
-
+      if (!roomId) {
+        window.location.replace('/')
+      }
     }
   }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage, roomId, gameStarted])
 
