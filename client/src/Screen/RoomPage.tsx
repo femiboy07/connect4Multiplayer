@@ -76,11 +76,11 @@ export default function RoomPage() {
 
   useEffect(() => {
     // Check if the room ID is available or not
-    if (!roomId || !gameStarted) {
+    if (!roomId || !isLoading) {
       // Redirect to home page if the room is not available or the game hasn't started
       navigate('/', { replace: true });
     }
-  }, [roomId, gameStarted, navigate]);
+  }, [roomId, isLoading, navigate]);
 
 
 
