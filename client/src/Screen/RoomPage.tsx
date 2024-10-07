@@ -110,9 +110,9 @@ export default function RoomPage() {
   useEffect(() => {
     preloadedSound();
 
-    // if (gameStarted) {
-    //   socket.emit('game_started', roomId);
-    // }
+    if (!gameStarted) {
+      setRoomId(null)
+    }
 
     if (!online) {
       // navigate('/', { replace: true })
