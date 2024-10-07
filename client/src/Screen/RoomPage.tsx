@@ -77,7 +77,7 @@ export default function RoomPage() {
 
   useBeforeUnload(
     useCallback((e: any) => {
-      socket.emit('leaveRoom', roomId);
+
       e.preventDefault();
 
       // Perform cleanup and disconnect socket
@@ -87,9 +87,14 @@ export default function RoomPage() {
       setPlayer2(null);
       setToast(false);
 
+      socket.on('disconnect', () => {
+        socket.emit('leaveRoom', roomId);
+        window.location.replace('/');
+      })
+
       // Force navigation back to home
       // navigate('/', { replace: true });
-      window.location.replace('/');
+
       return ''
     }, [roomId, setGameStarted, setPlayer1, setPlayer2, setRoomId, setToast, socket])
   )
