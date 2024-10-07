@@ -23,7 +23,7 @@ function App() {
 
     socket.emit('welcome', '1111111111111111');
 
-  }, [socket])
+  }, [])
 
 
   console.log(data)

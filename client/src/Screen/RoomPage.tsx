@@ -230,15 +230,15 @@ export default function RoomPage() {
       socket.off("room_joined")
       socket.off('invalid_turn')
       socket.off('updateState')
-      socket.off('gameStarted')
+
       socket.off('winner')
       socket.off('player_update');
       socket.off('playerLeft');
       socket.off('game_started')
-
+      socket.off('gameStarted')
 
     }
-  }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage, gameStarted, roomId])
+  }, [socket, navigate, setPlayer1, setPlayer2, setCurrentPlayer, winner, online, preloadedSound, setPlayerLeft, setRoomId, setBeginMessage, setOnMount, setGameStarted, setBoard, setWinner, setWon, setToast, setToastMessage, roomId, gameStarted])
 
 
   useEffect(() => {
