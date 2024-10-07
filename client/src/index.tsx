@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import RoomPage from './Screen/RoomPage';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import { sockerServerUrl, socket, SocketContext } from './SocketContext';
+import { socket, SocketContext } from './SocketContext';
 import { GameProvider } from './GameContext';
 import { ManageRoomProvider } from './components/Context/MangaeRoomSocket';
 
