@@ -106,10 +106,11 @@ export default function RoomPage() {
 
     return () => {
       socket.off('game_started');
-      setRoomId(null)
+      window.location.replace('/')
+      // setRoomId(null)
 
     }
-  }, [gameStarted, roomId, socket, setRoomId])
+  }, [gameStarted, roomId, socket])
 
   useEffect(() => {
     preloadedSound();
