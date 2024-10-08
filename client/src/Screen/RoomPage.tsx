@@ -307,7 +307,7 @@ export default function RoomPage() {
       {!online && <ModalConnection />}
       {!gameStarted &&
         <div className="text-center w-full h-full  leading-3 bg-white ">
-          {onMount && <h1 className={`md:text-4xl text-xl leading-8 delay-75 text-black duration-150 ease-in-out`}>Finding a Random Player</h1>}
+          {onMount && <h1 className={`md:text-4xl text-xl leading-8 delay-75 text-black `}>Finding a Random Player</h1>}
           <p className="text-black font-bold mt-3 md:text-2xl text-xl">{beginMessage}</p>
           {isLoading && <div className="w-full h-full justify-center text-center flex-col items-center ">
             <span>Loading...</span>
