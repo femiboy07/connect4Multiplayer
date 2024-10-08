@@ -10,7 +10,7 @@ export const sockerServerUrl = port.replace(/^http/, protocol);
 
 // Create a context for the socket
 
-export const socket =io(sockerServerUrl,{
+export const socket =io("https://serverconnect-kxhn.onrender.com/",{
     transports:['websocket']
 })
 
