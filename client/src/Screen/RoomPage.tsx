@@ -64,8 +64,7 @@ export default function RoomPage() {
         setPlayer2(null);
         setToast(false);
 
-        // Force navigation back to home
-        // navigate('/', { replace: true });
+
         window.location.replace('/')
       }
     };
@@ -85,11 +84,11 @@ export default function RoomPage() {
 
 
   useBeforeUnload(useCallback((e: any) => {
-    if (onMount && beginMessage) {
+    if (onMount && beginMessage && !isLoading) {
 
       socket.emit('stop_searching_players')
     }
-  }, [beginMessage, onMount, socket]))
+  }, [beginMessage, isLoading, onMount, socket]))
 
 
   useEffect(() => {
