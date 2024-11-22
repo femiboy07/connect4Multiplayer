@@ -10,7 +10,7 @@ export const sockerServerUrl = port.replace(/^http/, protocol);
 
 // Create a context for the socket
 
-export const socket =io("wss://serverconnect-kxhn.onrender.com",{
+export const socket =io("https://multiplayerconnect4.onrender.com",{
     transports:['websocket']
 })
 
