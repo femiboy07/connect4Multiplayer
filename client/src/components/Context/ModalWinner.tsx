@@ -18,6 +18,7 @@ export default function ModalWinner({ roomId, setWinner, won, playerLeft, winner
   const [opponentLeft, setOpponentLeft] = useState(false);
 
   function rematch() {
+    clearInterval(leaveTimerRef.current!);
     if (playerLeft) {
       setMessage('opponent left the game')
     } else {
@@ -26,7 +27,8 @@ export default function ModalWinner({ roomId, setWinner, won, playerLeft, winner
       console.log('Waiting for the other player to accept the rematch...');
       socket.emit('rematchRequest', { roomId }, (response: { status: string }) => {
         if (response.status === 'accepted') {
-          setLoading(false)
+          setLoading(false);
+
           console.log(response.status)
           setMessage('Rematch accepted! Starting new game...')
           console.log('Rematch accepted! Starting new game...');
@@ -69,22 +71,22 @@ export default function ModalWinner({ roomId, setWinner, won, playerLeft, winner
           setCount((prev) => prev - 1)
         }
       }, 1000);
+      if (reply) {
+        clearInterval(leaveTimerRef.current)
+      }
+
       if (count === 0) {
         clearInterval(leaveTimerRef.current);
         leaveRoom()
         // navigate('/', { replace: true })
       }
-
-
-
     }
-
     return () => {
       if (leaveTimerRef.current) {
         clearInterval(leaveTimerRef.current)
       }
     }
-  }, [count, playerLeft, roomId, socket, navigate, leaveRoom, winner, won])
+  }, [count, playerLeft, roomId, socket, navigate, leaveRoom, winner, won, reply])
 
 
 
@@ -94,7 +96,7 @@ export default function ModalWinner({ roomId, setWinner, won, playerLeft, winner
   useEffect(() => {
     socket.on('rematchRequest', (data, callback) => {
       setReply(true); // Show rematch options in UI
-
+      clearInterval(leaveTimerRef.current!);
       // Call the callback to send the response back to the server
       setStoredCallback(() => callback);
       //  await callback({ status: currentValue });
@@ -124,12 +126,11 @@ export default function ModalWinner({ roomId, setWinner, won, playerLeft, winner
       console.log(data.message);
       setLoading(false);
       setMessage(data.message);
-
       // After showing the message, reset winner state and navigate
       setWinner(false)
       navigate(`/r/${roomId}`);
-
     });
+
     socket.on('opponent_left', (data) => {
       console.log(data)
       setLoading(false)

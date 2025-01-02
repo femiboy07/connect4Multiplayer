@@ -1,8 +1,7 @@
-import React, { SetStateAction, useEffect, useState } from 'react';
-import { replace, useNavigate } from 'react-router-dom';
+import React, { SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useSocket } from '../SocketContext';
-import { AiOutlineLoading } from "react-icons/ai";
 
 
 

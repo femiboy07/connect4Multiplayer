@@ -64,7 +64,6 @@ export function useManageRoomContext(): ManageProps {
 
 
 export const ManageRoomProvider = ({ children }: { children: React.ReactNode }) => {
-
     const [beginMessage, setBeginMessage] = useState<string>('')
     const [onMount, setOnMount] = useState<boolean>(false)
     const [gameStarted, setGameStarted] = useState<boolean>(false);
@@ -79,7 +78,6 @@ export const ManageRoomProvider = ({ children }: { children: React.ReactNode }) 
     const [toast, setToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
     const [playerLeft, setPlayerLeft] = useState(false);
-    // const { preloadedSound, sounds } = usePreloadedSound()
 
     const AllValues = {
         leaveRoom,

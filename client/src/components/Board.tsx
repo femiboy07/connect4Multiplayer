@@ -1,7 +1,7 @@
-import React, { RefObject, useState } from "react";
+import React, { useState } from "react";
 import Cell from "./Cell";
 import BoardTime from "./TimeBoard";
-import boardLayoutLarge from '../../src/assets/images/board-layer-black-large.svg'
+// import boardLayoutLarge from '../../src/assets/images/board-layer-black-large.svg'
 import { useSocket } from "../SocketContext";
 import redImage from '../assets/images/marker-red.svg';
 import yellowImage from '../assets/images/marker-yellow.svg'
@@ -11,7 +11,7 @@ import { useManageRoomContext } from "./Context/MangaeRoomSocket";
 
 
 export default function Board({ cellRef, onClick, clicked }: { cellRef: any, onClick: Function, clicked: boolean }) {
-  const { board, setBoard, currentPlayer, player1, player2, winner, gameStarted, roomId, setCurrentPlayer } = useManageRoomContext()
+  const { board, currentPlayer, player1, player2 } = useManageRoomContext()
   const boardStyles = 'board rounded-t-[15px] lg:max-w-lg w-full h-fit bg-white px-[10px] pb-[50px] border-x-2 rounded-bl-[35px] rounded-br-[35px] flex flex-col justify-center items-center relative z-[55] flex-wrap gap-y-[10px] border-black border-t-2 border-b-[10px]'
   console.log(board)
   const [hover, setHover] = useState(false);
@@ -64,22 +64,15 @@ export default function Board({ cellRef, onClick, clicked }: { cellRef: any, onC
                 cellRef.current[rowIndex] = el;
               }
             }}
-
-
             celler={cellRef}
             key={`${rowIndex}`}
-
-
-            // disabledCell={disabledCell}
             onMouseHovers={() => OnMouseHovers(rowIndex % 7)}
             onMouseRemove={() => onMouseRemove(rowIndex % 7)}
             onClick={() => onClick(rowIndex % 7)} value={cell} />
         ))}
         <BoardTime
           clicked={clicked}
-
           onClick={onClick}
-
         />
       </div>
 
